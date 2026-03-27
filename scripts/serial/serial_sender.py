@@ -1,7 +1,7 @@
 import time
 import serial
 
-PORT = "COM3"               #后面根据实际串口修改，因为机子还没到
+PORT = "COM3"
 BAUDRATE = 115200
 INTERVAL = 1.0
 
@@ -17,13 +17,15 @@ def main():
             print(f"[SEND] {message.strip()}")
             time.sleep(INTERVAL)
 
-except serial.SerialException as e:
-    print(f"[ERROR] Serial exception: {e}")
-except KeyboardInterrupt:
-    print("\n[INFO] Stopped by user.")
-finally:
-    if ser is not None and ser.is_open:
-        ser.close()
+    except serial.SerialException as e:
+        print(f"[ERROR] Serial exception: {e}")
+
+    except KeyboardInterrupt:
+        print("\n[INFO] Stopped by user.")
+
+    finally:
+        if ser is not None and ser.is_open:
+            ser.close()
         print("[INFO] Serial port closed.")
 
 if __name__ == "__main__":
