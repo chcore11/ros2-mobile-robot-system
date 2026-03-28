@@ -1,39 +1,41 @@
-import time
 import serial
+import time
 
 PORT = "COM3"
 BAUDRATE = 115200
 
 def main():
-    ser = None
-    try:
-        ser = serial.Serial(PORT, BAUDRATE, timeout=1)
-        time.sleep(2)  # 等 Arduino 串口稳定
-        print(f"[INFO] Serial connected: {PORT} @ {BAUDRATE}")
+    ser = serial.Serial(PORT, BAUDRATE, timeout=1)
+    time.sleep(2)
 
-        commands = ["forward", "left", "right", "stop", "test"]
+    print("Control with WASD keys, q to quit")
 
-        for cmd in commands:
-            message = cmd + "\n"
-            ser.write(message.encode("utf-8"))
-            print(f"[SEND] {cmd}")
-            time.sleep(0.5)
+    while True:
+        cmd = input(">>> ").strip().lower()
 
-            reply = ser.readline().decode("utf-8", errors="ignore").strip()
-            if reply:
-                print(f"[RECV] {reply}")
-            else:
-                print("[RECV] <no response>")
+        if cmd == "q":
+            break
 
-            time.sleep(1.0)
+        if cmd == "w":
+            msg = "forward\n"
+        elif cmd == "s":
+            msg = "back\n"
+        elif cmd == "a":
+            msg = "left\n"
+        elif cmd == "d":
+            msg = "right\n"
+        else:
+            print("Invalid key")
+            continue
 
-    except serial.SerialException as e:
-        print(f"[ERROR] Serial failed: {e}")
+        ser.write(msg.encode("utf-8"))
+        print(f"[SEND] {msg.strip()}")
 
-    finally:
-        if ser is not None and ser.is_open:
-            ser.close()
-            print("[INFO] Serial closed")
+        reply = ser.readline().decode().strip()
+        if reply:
+            print(f"[RECV] {reply}")
+
+    ser.close()
 
 if __name__ == "__main__":
     main()
