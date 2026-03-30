@@ -5,3 +5,16 @@ log/
 __pycache__/
 .vscode/
 .DS_Store
+# STM32 build outputs
+**/Debug/
+**/Release/
+
+# binaries
+*.elf
+*.bin
+*.map
+*.list
+
+# OS
+.DS_Store
+Thumbs.db
