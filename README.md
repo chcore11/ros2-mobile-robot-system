@@ -2,14 +2,15 @@
 
 <div align="center">
 
-![ROS2](https://img.shields.io/badge/ROS2-Humble-blue?style=flat-square\&logo=ros)
-![Ubuntu](https://img.shields.io/badge/Ubuntu-22.04-orange?style=flat-square\&logo=ubuntu)
-![Status](https://img.shields.io/badge/Stage--2-Execution--Layer-yellow?style=flat-square)
+![ROS2](https://img.shields.io/badge/ROS2-Humble-blue?style=flat-square&logo=ros)
+![Ubuntu](https://img.shields.io/badge/Ubuntu-22.04-orange?style=flat-square&logo=ubuntu)
+![MCU](https://img.shields.io/badge/MCU-STM32G4-green?style=flat-square)
+![Status](https://img.shields.io/badge/Current--Phase-Competition--Track-yellow?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
 ---
 
-**A ROS2-based mobile robot system transitioning from simulation to real-world execution, with system-level architecture and engineering design.**
+**A competition-oriented embedded mobile robot project focused on STM32-based AGV chassis closed-loop control.**
 
 </div>
 
@@ -17,148 +18,198 @@
 
 ## 👤 About This Project
 
-This project is the next stage of my ROS2 robotics journey.
+`ros2-mobile-robot-system` is the second major stage of my robotics engineering journey.
 
-After building a complete navigation system in simulation, this project focuses on extending that system into the real world by integrating embedded hardware and execution layers.
+After completing a ROS2 navigation project in simulation, I started this repository to move from system-level understanding into real embedded execution and physical robot control.
 
-Instead of only making the system run in simulation, the goal here is to understand and implement how a robot actually **moves, executes commands, and interacts with the physical world**.
+At the current stage, this repository is no longer treated as an open-ended “simulation to real robot” expansion project.
 
----
-
-## 🎯 What This Project Does
-
-This project builds a **real-world extension of the ROS2 navigation system**:
-
-Simulation → Execution Layer → Real Robot → Autonomous Navigation
-
-It focuses on:
-
-* bridging ROS2 with embedded systems  
-* building a physical robot execution pipeline  
-* enabling real robot motion based on ROS2 commands  
+Instead, its near-term objective has been explicitly aligned with the **2026 National Embedded Chip and System Design Contest**, with the project focus shifted toward building a **competition-deliverable STM32-based AGV chassis control system**.
 
 ---
 
-## 🧠 Key Insight
+## 🎯 Current Project Positioning
 
-A working robot system is not just software.
+**Current competition direction:**
 
-It is a complete system composed of:
+- **Track:** STMicroelectronics Track  
+- **Topic:** Industry 4.0 / Motor Control / Robotics  
+- **Project Title:** AGV Chassis Closed-Loop Control System Based on STM32G4  
 
-* **Perception (SLAM / Lidar)** → understanding the environment  
-* **Planning (Nav2)** → deciding where to go  
-* **Execution (STM32 + Motor Driver)** → making the robot move  
+**Current engineering goal:**
 
-The execution layer is the missing link between simulation and reality.
+Build a **small but complete embedded mobile robot chassis platform** centered on:
+
+- dual-motor drive  
+- PWM-based speed control  
+- encoder feedback  
+- basic closed-loop control  
+- odometry estimation  
+- stable motion demonstration  
+- competition-oriented engineering documentation  
 
 ---
 
-## ⚙️ System Pipeline
+## 🧠 Core Idea
 
-ROS2 cmd_vel
-→ Serial Communication
-→ STM32 (Execution Layer)
-→ TB6612 Motor Driver
-→ Motor Output
-→ Robot Motion
+At this stage, the project is **not** centered on full ROS2 autonomy.
 
+The main task now is to build the **embedded control core** of the robot.
 
+That means the project priority is:
 
-Supporting flows (future integration):
+**STM32 → Motor Driver → Motor Control → Chassis Motion → Closed-Loop Stability**
 
-* `/scan → SLAM → map`
-* `map + odom → AMCL → pose`
-* `Nav2 → cmd_vel → execution`
+ROS2 remains important, but for now it serves as:
+
+- background technical foundation  
+- future host-side extension  
+- optional communication interface for later integration  
+
+In other words:
+
+> the current main subject is the embedded chassis control system,  
+> not the full ROS2 autonomous navigation stack.
+
+---
+
+## ⚙️ Current System Pipeline
+
+### Main Competition Pipeline
+
+STM32G4  
+→ PWM / GPIO / Timer Control  
+→ TB6612 Motor Driver  
+→ Dual DC Motors  
+→ Encoder Feedback  
+→ Speed Closed-Loop Control  
+→ Chassis Motion
+
+### Optional Future Extension
+
+ROS2 / Host Computer  
+→ Serial Communication  
+→ STM32 Control Layer  
+→ Motion Execution
 
 ---
 
 ## 📍 Current Status
 
-🟡 Stage 2 In Progress — Execution Layer Development
+🟡 **Current Phase: Competition Delivery Track**
 
-Current focus:
+The repository is currently focused on building the first competition-ready version of the system.
 
-* STM32 PWM motor control  
-* TB6612 motor driver integration  
-* basic motion (forward / backward / turning)  
+### Current priorities
+
+- STM32 motor control bring-up  
+- TB6612 integration  
+- forward / backward / turning control  
+- encoder signal reading  
+- basic speed closed-loop preparation  
+- chassis-level stable motion verification  
+
+---
+
+## 🏁 Development Strategy
+
+This project now follows a competition-oriented development path:
+
+### Phase A — Bring-up and Verification
+Use the existing hardware platform to quickly verify:
+
+- GPIO / PWM output  
+- motor direction control  
+- driver wiring correctness  
+- basic motion capability  
+
+### Phase B — Competition Version Construction
+Move toward the formal competition-oriented embedded system:
+
+- STM32G4-based platform alignment  
+- encoder feedback integration  
+- speed closed-loop control  
+- odometry-related estimation  
+- stable AGV-style demo  
+- engineering documentation and demonstration materials  
 
 ---
 
 ## 🖥️ Environment
 
-* OS: Ubuntu 22.04 (WSL2)
-* ROS2: Humble
-* Simulator: Gazebo (Stage 1)
-* Embedded: STM32 Nucleo-F401RE
-* Motor Driver: TB6612FNG
+### Software
+- OS: Ubuntu 22.04 (WSL2)
+- ROS2: Humble
+- Simulator: Gazebo
+- IDE: STM32CubeIDE
+- Version Control: Git + GitHub
+
+### Hardware
+- MCU (current training platform): STM32 Nucleo-F401RE
+- MCU (competition target platform): STM32G4 series
+- Motor Driver: TB6612FNG
+- Robot Base: 2WD mobile chassis
+- Motors: DC geared motors with encoder
+- Power: battery-powered mobile robot platform
 
 ---
 
 ## 📂 Project Structure
 
+```text
 ros2-mobile-robot-system/
-├── docs/ # System architecture and hardware explanations
-├── logs/ # Daily progress logs
-├── assets/ # Diagrams (architecture, data flow)
-├── scripts/ # Launch / control scripts
-├── workspace/ # ROS2 packages
-└── README.md
+├── docs/        # architecture, hardware notes, competition-related writeups
+├── logs/        # daily engineering progress logs
+├── assets/      # diagrams, figures, screenshots
+├── scripts/     # helper scripts
+├── firmware/    # STM32 firmware projects
+├── workspace/   # optional ROS2 workspace / host-side packages
+├── README.md
+└── PROGRESS.md
 
----
+📚 Documentation Focus
 
-## 📚 Documentation
+The current documentation work will focus on:
 
-Core system topics:
+embedded chassis system architecture
+STM32 motor control design
+TB6612 wiring and driver logic
+encoder feedback and speed estimation
+closed-loop control strategy
+competition-oriented engineering packaging
+🏆 Current Milestone Target
 
-* Execution Layer Design
-* ROS2 ↔ STM32 Communication
-* Differential Drive Control
-* System Architecture (Simulation → Real World)
+The current milestone is not full autonomous navigation.
 
----
+The current milestone is:
 
-## 🚀 Project Focus
+build a stable embedded AGV chassis prototype that can be demonstrated, explained, iterated, and packaged as a competition project.
 
-This project emphasizes:
+This includes:
 
-* robotics system architecture  
-* simulation → real-world transition  
-* embedded system integration  
-* execution layer design  
-* engineering workflow  
+stable dual-motor drive
+controllable chassis motion
+encoder-based feedback path
+basic closed-loop capability
+clean repository structure
+logs, documentation, and demo materials
+🔜 Next Steps
 
----
+The next major tasks are:
 
-## 🏆 Stage 2 Milestone (Target)
+complete dual-motor control on STM32
+finish TB6612 integration and stable chassis motion
+read encoder signals and establish speed feedback
+implement the first version of speed closed-loop control
+prepare AGV-style fixed-route / stable-motion demo
+refine documentation, logs, and project packaging
 
-The goal of this stage is to achieve:
+Optional later extension:
 
-* stable motor control via STM32  
-* real robot movement  
-* ROS2 command → physical execution  
+ROS2 ↔ STM32 communication
+cmd_vel mapping
+host-side monitoring
+lidar integration
+real-world SLAM and navigation
 
-This marks the transition from:
-
-> “system runs in simulation” → “system controls a real robot”
-
----
-
-## 🔜 Next Steps
-
-The next phase will focus on completing the full autonomous loop:
-
-- ROS2 ↔ STM32 communication  
-- cmd_vel mapping to motor control  
-- encoder-based odometry  
-- lidar integration  
-- real-world SLAM and navigation  
-
-This represents the evolution from:
-
-> Execution layer → Autonomous real robot system
-
----
-
-## 📌 Note
-
-This project is continuously evolving as part of a long-term robotics engineering journey.
+These are valuable, but they are not the current main battle.
